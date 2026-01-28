@@ -1,0 +1,25 @@
+Experiment 22-UNIX I/O System Calls
+
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/stat.h>
+#include <dirent.h>
+
+int main() {
+    struct stat fileStat;
+    DIR *dir;
+    struct dirent *entry;
+
+    stat("sample.txt", &fileStat);
+    printf("File Size: %ld bytes\n", fileStat.st_size);
+
+    dir = opendir(".");
+    printf("Directory contents:\n");
+    while ((entry = readdir(dir)) != NULL) {
+        printf("%s\n", entry->d_name);
+    }
+    closedir(dir);
+
+    return 0;
+}
